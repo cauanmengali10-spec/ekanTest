@@ -15,7 +15,6 @@ public enum ErrorCode {
   DOCUMENTO_TIPO_INVALIDO("documento.tipo.invalido"),
   DOCUMENTO_DATA_EXPIRACAO_INVALIDA("documento.data.expiracao.invalida");
 
-
   private final String code;
 
   ErrorCode(String code) {

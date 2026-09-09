@@ -1,7 +1,6 @@
-
 package com.ekan.teste.handler;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
