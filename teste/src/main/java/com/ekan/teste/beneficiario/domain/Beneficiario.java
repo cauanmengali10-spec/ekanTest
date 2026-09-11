@@ -1,5 +1,6 @@
 package com.ekan.teste.beneficiario.domain;
 
+import com.ekan.teste.beneficiario.application.api.request.BeneficiarioRequest;
 import com.ekan.teste.documento.domain.Documento;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -7,14 +8,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "beneficiario")
 public class Beneficiario {
@@ -52,5 +56,21 @@ public class Beneficiario {
   @PreUpdate
   protected void onUpdate() {
     this.dataAtualizacao = LocalDateTime.now();
+  }
+
+  public Beneficiario(BeneficiarioRequest novoBeneficiario) {
+    this.nome = novoBeneficiario.getNome();
+    this.telefone = novoBeneficiario.getTelefone();
+    this.dataNascimento = novoBeneficiario.getDataNascimento();
+    this.documento =
+        novoBeneficiario.getDocumento().stream()
+            .map(
+                docReq ->
+                    Documento.builder()
+                        .beneficiario(this)
+                        .tipoDocumento(docReq.getTipoDocumento())
+                        .descricao(docReq.getDescricao())
+                        .build())
+            .collect(Collectors.toList());
   }
 }

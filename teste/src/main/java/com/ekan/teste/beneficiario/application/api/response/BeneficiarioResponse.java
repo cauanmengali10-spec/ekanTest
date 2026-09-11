@@ -2,6 +2,7 @@ package com.ekan.teste.beneficiario.application.api.response;
 
 import com.ekan.teste.beneficiario.domain.Beneficiario;
 import com.ekan.teste.documento.application.api.response.DocumentoResponse;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,7 +19,11 @@ public class BeneficiarioResponse {
   private final List<DocumentoResponse> documento;
   private final String telefone;
   private final LocalDate dataNascimento;
+
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private final LocalDateTime dataInclusao;
+
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private final LocalDateTime dataAtualizacao;
 
   public BeneficiarioResponse(Beneficiario beneficiario) {

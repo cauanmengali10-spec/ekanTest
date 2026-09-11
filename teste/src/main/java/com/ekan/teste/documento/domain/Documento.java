@@ -7,13 +7,15 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "documento")
 public class Documento {
 
@@ -23,10 +25,11 @@ public class Documento {
   @JoinColumn(name = "id_beneficiario")
   private Beneficiario beneficiario;
 
+  @NotNull @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private String tipoDocumento;
+  private TipoDocumento tipoDocumento;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String descricao;
 
   @Column(nullable = false)

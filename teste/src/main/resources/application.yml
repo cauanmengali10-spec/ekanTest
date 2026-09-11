@@ -12,15 +12,20 @@ spring:
     username: ${DATASOURCE_USER:postgres}
     password: ${DATASOURCE_PASS:postgres}
     driver-class-name: org.postgresql.Driver
+  docker:
+    compose:
+      enabled: false
   jpa:
     hibernate:
       ddl-auto: none
+      default_schema: test
     show-sql: true
     open-in-view: false
   flyway:
     enabled: true
     locations: classpath:db/migration
     baseline-on-migrate: true
+    schemas: test
 
 springdoc:
   api-docs:

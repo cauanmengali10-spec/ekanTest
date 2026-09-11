@@ -2,11 +2,13 @@ package com.ekan.teste.beneficiario.application.api;
 
 import com.ekan.teste.beneficiario.application.api.request.BeneficiarioRequest;
 import com.ekan.teste.beneficiario.application.api.response.BeneficiarioResponse;
+import com.ekan.teste.beneficiario.application.api.response.PageResponse;
+import com.ekan.teste.documento.application.api.response.DocumentoResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/beneficiario")
@@ -14,5 +16,18 @@ public interface BeneficiarioAPI {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  BeneficiarioResponse criaBeneficiario(BeneficiarioRequest beneficiarioRequest);
+  BeneficiarioResponse criaBeneficiario(
+      @Valid @RequestBody BeneficiarioRequest beneficiarioRequest);
+
+  @GetMapping("/beneficiarios")
+  PageResponse<BeneficiarioResponse> listarTodosBeneficiarios(
+      @RequestParam(name = "page", defaultValue = "0") int page,
+      @RequestParam(name = "size", defaultValue = "10") int size);
+
+  @GetMapping("/documentos/{idBeneficiario}")
+  PageResponse<DocumentoResponse> listarDocumentoDoBeneficiario(
+          @PathVariable UUID idBeneficiario,
+          @RequestParam(name = "page", defaultValue = "0") int page,
+          @RequestParam(name = "size", defaultValue = "10") int size
+  );
 }
