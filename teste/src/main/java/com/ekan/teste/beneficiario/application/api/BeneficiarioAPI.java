@@ -34,4 +34,8 @@ public interface BeneficiarioAPI {
   BeneficiarioResponse atualizaBeneficiario(
       @PathVariable UUID idBeneficiario,
       @Valid @RequestBody BeneficiarioUpdateRequest updateRequest);
+
+  @DeleteMapping("/{idBeneficiario}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  void deletaBeneficiario(@PathVariable UUID idBeneficiario);
 }
