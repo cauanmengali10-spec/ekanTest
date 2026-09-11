@@ -1,6 +1,7 @@
 package com.ekan.teste.beneficiario.domain;
 
 import com.ekan.teste.beneficiario.application.api.request.BeneficiarioRequest;
+import com.ekan.teste.beneficiario.application.api.request.BeneficiarioUpdateRequest;
 import com.ekan.teste.documento.domain.Documento;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -72,5 +73,11 @@ public class Beneficiario {
                         .descricao(docReq.getDescricao())
                         .build())
             .collect(Collectors.toList());
+  }
+
+  public void atualizaBeneficiario(BeneficiarioUpdateRequest updateRequest) {
+    this.nome = updateRequest.getNome();
+    this.telefone = updateRequest.getTelefone();
+    this.dataNascimento = updateRequest.getDataNascimento();
   }
 }
