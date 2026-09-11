@@ -18,4 +18,6 @@ public interface BeneficiarioService {
 
   BeneficiarioResponse atualizaBeneficiario(
       UUID idBeneficiario, BeneficiarioUpdateRequest updateRequest);
+
+  void deletaBeneficiario(UUID idBeneficiario);
 }

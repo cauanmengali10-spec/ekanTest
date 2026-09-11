@@ -14,4 +14,6 @@ public interface BeneficiarioRepository {
   Page<Documento> listaDocumentosDoBeneficiario(UUID idBeneficiario, Pageable pageable);
 
   Beneficiario buscaBeneficiarioPeloId(UUID idBeneficiario);
+
+  void deletaBeneficiario(UUID idBeneficiario);
 }
