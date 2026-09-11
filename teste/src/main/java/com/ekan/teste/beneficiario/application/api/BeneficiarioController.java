@@ -24,7 +24,7 @@ public class BeneficiarioController implements BeneficiarioAPI {
 
   @Override
   public BeneficiarioResponse criaBeneficiario(BeneficiarioRequest beneficiarioRequest) {
-    log.info("Criando beneficiário: {}", beneficiarioRequest);
+    log.debug("[start] BeneficiarioController - criaBeneficiario");
     return beneficiarioService.criaBeneficiario(beneficiarioRequest);
   }
 
@@ -54,5 +54,12 @@ public class BeneficiarioController implements BeneficiarioAPI {
       UUID idBeneficiario, BeneficiarioUpdateRequest updateRequest) {
     log.debug("[start] BeneficiarioController - atualizaBeneficiario");
     return beneficiarioService.atualizaBeneficiario(idBeneficiario, updateRequest);
+  }
+
+  @Override
+  public void deletaBeneficiario(UUID idBeneficiario) {
+    log.debug("[start] BeneficiarioController - deletaBeneficiario");
+    beneficiarioService.deletaBeneficiario(idBeneficiario);
+    log.debug("[finish] BeneficiarioController - deletaBeneficiario");
   }
 }
