@@ -13,7 +13,7 @@ public class PageResponse<T> {
   private Long totalElements;
   private int paginaAtual;
   private int totalPaginas;
-  private long totalUsuarios;
+  private long totalBeneficiarios;
 
   public static <T> PageResponse<T> from(Page<T> page) {
     return new PageResponse<>(
