@@ -60,4 +60,17 @@ public class BeneficiarioInfraRepository implements BeneficiarioRepository {
     log.debug("[finish] BeneficiarioInfraRepository - buscaBeneficiarioPeloId");
     return beneficiario;
   }
+
+  @Override
+  public void deletaBeneficiario(UUID idBeneficiario) {
+    log.debug("[start] BeneficiarioInfraRepository - deletaBeneficiario");
+    Beneficiario beneficiario =
+        beneficiarioJPARepository
+            .findById(idBeneficiario)
+            .orElseThrow(
+                () ->
+                    new APIException(HttpStatus.NOT_FOUND, ErrorCode.BENEFICIARIO_NAO_ENCONTRADO));
+    beneficiarioJPARepository.delete(beneficiario);
+    log.debug("[finish] BeneficiarioInfraRepository - deletaBeneficiario");
+  }
 }
