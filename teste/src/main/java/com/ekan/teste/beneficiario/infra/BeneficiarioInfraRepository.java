@@ -2,19 +2,16 @@ package com.ekan.teste.beneficiario.infra;
 
 import com.ekan.teste.beneficiario.domain.Beneficiario;
 import com.ekan.teste.beneficiario.repository.BeneficiarioRepository;
-import com.ekan.teste.documento.application.api.response.DocumentoResponse;
 import com.ekan.teste.documento.domain.Documento;
 import com.ekan.teste.handler.APIException;
 import com.ekan.teste.handler.ErrorCode;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
-
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Repository
@@ -41,10 +38,26 @@ public class BeneficiarioInfraRepository implements BeneficiarioRepository {
   @Override
   public Page<Documento> listaDocumentosDoBeneficiario(UUID idBeneficiario, Pageable pageable) {
     log.debug("[start] BeneficiarioInfraRepository - listaDocumentosDoBeneficiario");
-    Beneficiario beneficiario = beneficiarioJPARepository
+    Beneficiario beneficiario =
+        beneficiarioJPARepository
             .findById(idBeneficiario)
-            .orElseThrow(() -> new APIException(HttpStatus.NOT_FOUND, ErrorCode.BENEFICIARIO_NAO_ENCONTRADO));
+            .orElseThrow(
+                () ->
+                    new APIException(HttpStatus.NOT_FOUND, ErrorCode.BENEFICIARIO_NAO_ENCONTRADO));
     log.debug("[finish] BeneficiarioInfraRepository - listaDocumentosDoBeneficiario");
     return beneficiarioJPARepository.buscaDocumentosDoBeneficiario(idBeneficiario, pageable);
+  }
+
+  @Override
+  public Beneficiario buscaBeneficiarioPeloId(UUID idBeneficiario) {
+    log.debug("[start] BeneficiarioInfraRepository - buscaBeneficiarioPeloId");
+    Beneficiario beneficiario =
+        beneficiarioJPARepository
+            .findById(idBeneficiario)
+            .orElseThrow(
+                () ->
+                    new APIException(HttpStatus.NOT_FOUND, ErrorCode.BENEFICIARIO_NAO_ENCONTRADO));
+    log.debug("[finish] BeneficiarioInfraRepository - buscaBeneficiarioPeloId");
+    return beneficiario;
   }
 }
